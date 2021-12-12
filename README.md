@@ -1,28 +1,11 @@
-<p align="center">
-  <a href="https://github.com/viral-sangani/Peer-to-Peer-Donation-dApp/stargazers">
-    <img alt="Stargazers" src="https://img.shields.io/github/stars/viral-sangani/coding-challenge-2021.svg?style=for-the-badge"/>
-  </a>
-  <a href="https://github.com/viral-sangani/Peer-to-Peer-Donation-dApp/network/members">
-    <img alt="Forks" src="https://img.shields.io/github/forks/viral-sangani/coding-challenge-2021.svg?style=for-the-badge"/>
-  </a>
-  <a href="https://github.com/viral-sangani/Peer-to-Peer-Donation-dApp/graphs/contributors">
-    <img alt="Contributors" src="https://img.shields.io/github/contributors/viral-sangani/coding-challenge-2021.svg?style=for-the-badge"/>
-  </a>
-  <a href="https://github.com/viral-sangani/Peer-to-Peer-Donation-dApp/issues">
-    <img alt="Issues" src="https://img.shields.io/github/issues/viral-sangani/coding-challenge-2021.svg?style=for-the-badge"/>
-  </a>
-  <a href="https://github.com/viral-sangani/Peer-to-Peer-Donation-dApp/">
-    <img alt="MIT License" src="https://img.shields.io/github/license/manaspratap/ARVideoBrowser.svg?style=for-the-badge"/>
-  </a>
-</p>
 
 <p align="center">
-  <h1 align="center">Donation dApp</h1>
+  <h1 align="center">ETH my Song Dapp</h1>
 </p>
 
 ## About The Project
 
-Donation dApp on Polygon to award your favorite content creator with MATIC tokens. 
+ETH my song allows fans and supportors to tip their favourite indie music artists.
 
 ## Tech stack and libraries
  - Solidity
