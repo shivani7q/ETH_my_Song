@@ -7,7 +7,7 @@
 This dApp on Polygon allows you to tip your favuorite indie artists/bands with MATIC tokens. The dApp is similar to soundcloud, but with this added functionality of receiving tips.
 
 ## Video Demo
-[https://youtu.be/U_RKD7fRYJE](url)
+[Demo Video](https://www.youtube.com/watch?v=U_RKD7fRYJE)
 
 ## Tech stack and libraries
  - Solidity
