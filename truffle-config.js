@@ -16,7 +16,7 @@ module.exports = {
         mnemonic: {
           phrase: mnemonic,
         },
-        providerOrUrl: `https://rpc-mumbai.maticvigil.com/v1/f7f8b00d0ae4a255a8de62af38b053ef125b6282`,
+        providerOrUrl: `https://mktstk4pa2ex.usemoralis.com:2053/server`,
         chainId: 80001,
       }),
     network_id: 80001,
