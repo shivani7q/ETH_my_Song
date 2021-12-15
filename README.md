@@ -18,4 +18,4 @@ This dApp on Polygon allows you to tip your favuorite indie artists/bands with M
  - Metamask
  - IPFS
 
-## Used Moralis RPC node in truffle js file
+*Used Moralis RPC node in truffle js file*
