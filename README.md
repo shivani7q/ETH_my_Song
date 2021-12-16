@@ -2,7 +2,7 @@
   <h1 align="center">ETH my Song dApp</h1>
 </p>
 
-## Try it out - [ETH My Song](https://ethmysong-r3ir7l03y-shivani7q.vercel.app/)
+## Try it out - [ETH My Song](https://ethmysong.vercel.app/)
 
 ## About The Project
 
