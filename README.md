@@ -2,6 +2,8 @@
   <h1 align="center">ETH my Song dApp</h1>
 </p>
 
+## Try it out - [ETH My Song](https://ethmysong-r3ir7l03y-shivani7q.vercel.app/)
+
 ## About The Project
 
 This dApp on Polygon allows you to tip your favuorite indie artists/bands with MATIC tokens. The dApp is similar to soundcloud, but with this added functionality of receiving tips.
