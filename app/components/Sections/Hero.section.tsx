@@ -6,12 +6,18 @@ import { Box, Text } from "@chakra-ui/react";
 
 const Hero: NextComponentType = () => {
   return (
-    <>
+    <Box
+      bgGradient="linear(to-r, #EF32D9 0%, #89FFFD 100%)"
+      py="6"
+      px="10"
+      h="72"
+      display="flex"
+      flexDir="column"
+    >
+      <Header />
       <Box
-        bgGradient="linear(to-r, #EF32D9 0%, #89FFFD 100%)"
-        px="10"
-        h="64"
         w="full"
+        h="full"
         display="flex"
         flexDir="column"
         justifyContent="center"
@@ -26,7 +32,7 @@ const Hero: NextComponentType = () => {
           Upload songs, support your fav artists
         </Text>
       </Box>
-    </>
+    </Box>
   );
 };
 

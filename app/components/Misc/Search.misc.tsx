@@ -10,7 +10,7 @@ const Search: NextComponentType = () => {
           bgColor="white"
           h="12"
           rounded="full"
-          w="2xl"
+          w="xl"
           display="flex"
           flexDir="row"
           alignItems="center"
