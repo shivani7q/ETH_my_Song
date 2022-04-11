@@ -1,10 +1,14 @@
 import type { NextComponentType } from "next";
 
-import { Box, Text, Button, Tooltip } from "@chakra-ui/react";
+import TipArtist from "../Modals/TipArtist.modal";
+import { Box, Text, Button, Tooltip, useDisclosure } from "@chakra-ui/react";
 
 const SongCard: NextComponentType = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <>
+      <TipArtist isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
       <Box w="72" h="80" rounded="lg" bgColor="white" shadow="xl">
         <Box
           w="full"
@@ -39,6 +43,7 @@ const SongCard: NextComponentType = () => {
               marginLeft="auto"
               _focus={{}}
               _active={{}}
+              onClick={onOpen}
             >
               5 MATIC
             </Button>
