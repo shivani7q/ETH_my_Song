@@ -13,31 +13,29 @@ const Header: NextComponentType = () => {
         gap="4"
       >
         <Button
-          bgColor="#D3F7FC"
+          h="9"
+          colorScheme="cyan"
           px="6"
           py="2"
           rounded="full"
           fontWeight="bold"
-          textColor="#374151"
-          _focus={{}}
-          _hover={{}}
+          textColor="white"
           _active={{}}
         >
-          Upload Song
+          upload song
         </Button>
 
         <Button
-          bgColor="#D3F7FC"
+          h="9"
+          colorScheme="cyan"
           px="6"
           py="2"
           rounded="full"
           fontWeight="bold"
-          textColor="#374151"
-          _focus={{}}
-          _hover={{}}
+          textColor="white"
           _active={{}}
         >
-          Connect Wallet
+          connect wallet
         </Button>
       </Box>
     </>

@@ -5,11 +5,13 @@ import { useData } from "../../contexts/DataContext";
 function Header() {
   const { account } = useData();
   const [data, setData] = React.useState();
+
   useEffect(() => {
     if (account !== "0x0") {
       setData(new Identicon(account, 200).toString());
     }
   }, [account]);
+  
   return (
     <div className="container items-center">
       <div className="flex flex-col md:flex-row items-center md:justify-between border py-3 px-5 rounded-xl">

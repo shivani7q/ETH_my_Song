@@ -1,7 +1,14 @@
 import type { NextComponentType } from "next";
 
 import TipArtist from "../Modals/TipArtist.modal";
-import { Box, Text, Button, Tooltip, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Text,
+  Button,
+  Tooltip,
+  useDisclosure,
+  Image,
+} from "@chakra-ui/react";
 
 const SongCard: NextComponentType = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -34,8 +41,13 @@ const SongCard: NextComponentType = () => {
 
           <Tooltip label="Total Tips" placement="top">
             <Button
+              h="8"
               py="1"
-              px="6"
+              px="4"
+              display="flex"
+              flexDir="row"
+              alignItems="center"
+              gap="1"
               fontSize="sm"
               rounded="full"
               variant="outline"
@@ -45,6 +57,12 @@ const SongCard: NextComponentType = () => {
               _active={{}}
               onClick={onOpen}
             >
+              <Image
+                src="/assests/polygon-icon.svg"
+                height="6"
+                width="6"
+                alt="polygon icon"
+              />
               5 MATIC
             </Button>
           </Tooltip>
