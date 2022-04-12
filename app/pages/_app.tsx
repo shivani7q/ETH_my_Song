@@ -12,12 +12,16 @@ import "@fontsource/syncopate/700.css"
 import "@fontsource/sen/400.css"
 import "@fontsource/sen/700.css";
 
+import { DataProvider } from '../contexts/DataContext';
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
+    <DataProvider>
       <ChakraProvider theme={theme}>
         <Component {...pageProps} />
       </ChakraProvider>
+    </DataProvider>
     </>
   );
 }
