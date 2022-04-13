@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 declare let window: any;
 import { FC, createContext, useContext, useEffect, useState } from "react";
 import Web3 from "web3";
