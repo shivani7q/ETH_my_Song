@@ -3,7 +3,11 @@ import type { NextPage } from "next";
 import { Hero, Search, SongCard } from "../components";
 import { Box, Text, Flex, Spinner } from "@chakra-ui/react";
 
+import { useData } from "../contexts/DataContext";
+
 const Home: NextPage = () => {
+  const { loading } = useData();
+
   return (
     <Box minH="100vh" minW="100vw" display="flex" flexDir="column">
       <Box>

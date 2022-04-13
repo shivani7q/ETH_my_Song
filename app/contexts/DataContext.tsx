@@ -21,7 +21,7 @@ export const DataProvider = ({ children }: any) => {
   return <DataContext.Provider value={data}>{children}</DataContext.Provider>;
 };
 
-export const useData = () => useContext<DataContextProps | null>(DataContext);
+export const useData = () => useContext<DataContextProps>(DataContext);
 
 export const useProviderData = () => {
   const [loading, setLoading] = useState(true);
