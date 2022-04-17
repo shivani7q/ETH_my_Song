@@ -9,13 +9,13 @@ const Home: NextPage = () => {
   const { loading } = useData();
 
   return (
-    <Box minH="100vh" minW="100vw" display="flex" flexDir="column">
+    <Box minH="100vh" minW="100vw" overflowX="hidden" display="flex" flexDir="column">
       <Box>
         <Hero />
         <Search />
       </Box>
 
-      {/* <Box my="24" mx="20" display="flex" flexDir="column" gap="8">
+      <Box my="24" mx="20" display="flex" flexDir="column" gap="8">
         <Text
           fontFamily="syncopate"
           fontSize="3xl"
@@ -28,9 +28,9 @@ const Home: NextPage = () => {
         <Flex dir="row" gap="8" alignItems="center">
           <SongCard />
         </Flex>
-      </Box> */}
+      </Box>
 
-      <Box
+      {/* <Box
         w="full"
         display="flex"
         flexDir="row"
@@ -45,7 +45,7 @@ const Home: NextPage = () => {
       >
         <Spinner />
         Loading
-      </Box>
+      </Box> */}
     </Box>
   );
 };

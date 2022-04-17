@@ -8,35 +8,64 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  useDisclosure,
   Button,
+  Input,
+  Image,
 } from "@chakra-ui/react";
 
 import type { Props } from "../../@types/TipArtist.props";
+import { useState } from "react";
 
 const TipArtist: NextComponentType<NextPageContext, {}, Props> = ({
   isOpen,
   onClose,
   onOpen,
 }) => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [value, setvalue] = useState<number>();
+
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
+          <ModalHeader fontFamily="sen" textAlign="center">
+            Tip Artist
+          </ModalHeader>
           <ModalCloseButton _focus={{}} />
-          <ModalBody>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius
-            commodi quas perferendis amet quidem, corporis quam, repellendus
-            explicabo laudantium facilis, quisquam magni dolorem rem?
-          </ModalBody>
 
-          <ModalFooter>
-            <Button colorScheme="blue" onClick={onClose} mr={3} _focus={{}}>
-              Close
+          <ModalBody
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            flexDir="column"
+            gap="4"
+          >
+            <Image src="/assests/polygon.svg" height="35" width="35" />
+            <Input
+              type="number"
+              w="64"
+              placeholder="amount of MATIC"
+              fontWeight="700"
+              textColor="gray.700"
+              fontFamily="sen"
+              value={value}
+              onChange={(e) => setvalue(e.target.valueAsNumber)}
+            />
+
+            <Button
+              colorScheme="purple"
+              fontFamily="redHat"
+              fontWeight="500"
+              mb="4"
+              _focus={{}}
+              isLoading={loading}
+              onClick={() => setLoading(true)}
+              isDisabled={!value && true}
+            >
+              checkout
             </Button>
-          </ModalFooter>
+          </ModalBody>
         </ModalContent>
       </Modal>
     </>
