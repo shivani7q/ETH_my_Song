@@ -13,7 +13,7 @@ import {
   Image,
 } from "@chakra-ui/react";
 
-import type { Props } from "../../@types/TipArtist.props";
+import type { Props } from "../../@types/Modal.props";
 import { useState } from "react";
 
 const TipArtist: NextComponentType<NextPageContext, {}, Props> = ({

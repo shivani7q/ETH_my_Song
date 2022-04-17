@@ -9,7 +9,13 @@ const Home: NextPage = () => {
   const { loading } = useData();
 
   return (
-    <Box minH="100vh" minW="100vw" overflowX="hidden" display="flex" flexDir="column">
+    <Box
+      minH="100vh"
+      minW="100vw"
+      overflowX="hidden"
+      display="flex"
+      flexDir="column"
+    >
       <Box>
         <Hero />
         <Search />
@@ -30,22 +36,24 @@ const Home: NextPage = () => {
         </Flex>
       </Box>
 
-      {/* <Box
-        w="full"
-        display="flex"
-        flexDir="row"
-        gap="4"
-        fontFamily="redHat"
-        fontSize="xl"
-        textColor="blue.600"
-        fontWeight="semibold"
-        my="32"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <Spinner />
-        Loading
-      </Box> */}
+      {loading && (
+        <Box
+          w="full"
+          display="flex"
+          flexDir="row"
+          gap="4"
+          fontFamily="redHat"
+          fontSize="xl"
+          textColor="blue.600"
+          fontWeight="semibold"
+          my="32"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Spinner />
+          Loading
+        </Box>
+      )}
     </Box>
   );
 };

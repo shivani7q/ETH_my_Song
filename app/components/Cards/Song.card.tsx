@@ -10,6 +10,8 @@ import {
   Image,
 } from "@chakra-ui/react";
 
+import ReactAudioPlayer from "react-audio-player";
+
 const SongCard: NextComponentType = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 

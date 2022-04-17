@@ -1,10 +1,13 @@
 import type { NextComponentType } from "next";
 import { useData } from "../../contexts/DataContext";
 
-import { Box, Button, Image } from "@chakra-ui/react";
+import { Box, Button, Image, useDisclosure } from "@chakra-ui/react";
+
+import UploadAudioModal from "../Modals/UploadAudio.modal";
 
 const Header: NextComponentType = () => {
   const { account } = useData();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   let minAddr =
     (account as string).substring(0, 4) +
@@ -13,6 +16,7 @@ const Header: NextComponentType = () => {
 
   return (
     <>
+      <UploadAudioModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
       <Box
         display="flex"
         flexDir="row"
@@ -29,7 +33,8 @@ const Header: NextComponentType = () => {
           rounded="full"
           fontWeight="bold"
           textColor="white"
-          _active={{}}
+          _focus={{}}
+          onClick={onOpen}
         >
           upload song
         </Button>
