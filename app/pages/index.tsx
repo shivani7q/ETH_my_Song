@@ -11,7 +11,7 @@ const Home: NextPage = () => {
   return (
     <Box
       minH="100vh"
-      minW="100vw"
+      minW="full"
       overflowX="hidden"
       display="flex"
       flexDir="column"
@@ -35,25 +35,6 @@ const Home: NextPage = () => {
           <SongCard />
         </Flex>
       </Box>
-
-      {loading && (
-        <Box
-          w="full"
-          display="flex"
-          flexDir="row"
-          gap="4"
-          fontFamily="redHat"
-          fontSize="xl"
-          textColor="blue.600"
-          fontWeight="semibold"
-          my="32"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <Spinner />
-          Loading
-        </Box>
-      )}
     </Box>
   );
 };

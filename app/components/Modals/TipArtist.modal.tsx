@@ -5,12 +5,14 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   Button,
   Input,
   Image,
+  InputGroup,
+  InputLeftElement,
+  Flex,
 } from "@chakra-ui/react";
 
 import type { Props } from "../../@types/Modal.props";
@@ -41,22 +43,29 @@ const TipArtist: NextComponentType<NextPageContext, {}, Props> = ({
             flexDir="column"
             gap="4"
           >
-            <Image src="/assests/polygon.svg" height="35" width="35" />
-            <Input
-              type="number"
-              w="64"
-              placeholder="amount of MATIC"
-              fontWeight="700"
-              textColor="gray.700"
-              fontFamily="sen"
-              value={value}
-              onChange={(e) => setvalue(e.target.valueAsNumber)}
-            />
+            <Flex justifyContent="center">
+              <InputGroup>
+                <InputLeftElement>
+                  <Image src="/assests/polygon.svg" height="6" width="6" />
+                </InputLeftElement>
+                <Input
+                  type="number"
+                  w="64"
+                  placeholder="amount of MATIC"
+                  fontWeight="700"
+                  textColor="gray.600"
+                  focusBorderColor="purple.500"
+                  fontFamily="sen"
+                  value={value}
+                  onChange={(e) => setvalue(e.target.valueAsNumber)}
+                />
+              </InputGroup>
+            </Flex>
 
             <Button
               colorScheme="purple"
-              fontFamily="redHat"
-              fontWeight="500"
+              fontFamily="sen"
+              fontWeight="400"
               mb="4"
               _focus={{}}
               isLoading={loading}
