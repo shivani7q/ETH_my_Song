@@ -13,7 +13,7 @@ function Header() {
   return (
     <div className="container items-center">
       <div className="flex flex-col md:flex-row items-center md:justify-between border py-3 px-5 rounded-xl">
-        <span className="font-mono">By Shivani Singh</span>
+        <span className="font-mono">Made for artists♡</span>
         <div className="flex flex-row space-x-2 items-center">
           <div className="h-5 w-5 rounded-full bg-yellow-500"></div>
           <span className="font-mono text-xl font-bold">ETH my Song</span>
