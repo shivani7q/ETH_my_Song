@@ -1,4 +1,4 @@
-declare let window: any
+declare let window: any;
 import type { NextComponentType, NextPageContext } from "next";
 import { useData } from "../../contexts/DataContext";
 
@@ -24,8 +24,9 @@ const TipArtist: NextComponentType<NextPageContext, {}, Props> = ({
   isOpen,
   onClose,
   onOpen,
-  id
+  id,
 }) => {
+  const [value, setvalue] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
   const { tipAudioOwner, updateAudios } = useData();
 
@@ -46,6 +47,24 @@ const TipArtist: NextComponentType<NextPageContext, {}, Props> = ({
             flexDir="column"
             gap="4"
           >
+            <Flex justifyContent="center">
+              <InputGroup>
+                <InputLeftElement>
+                  <Image src="/assests/polygon.svg" height="6" width="6" />
+                </InputLeftElement>
+                <Input
+                  type="number"
+                  w="64"
+                  placeholder="amount of MATIC"
+                  fontWeight="700"
+                  textColor="gray.600"
+                  focusBorderColor="purple.500"
+                  fontFamily="sen"
+                  value={value}
+                  onChange={(e) => setvalue(e.target.value)}
+                />
+              </InputGroup>
+            </Flex>
             <Button
               colorScheme="purple"
               fontFamily="sen"
@@ -54,7 +73,7 @@ const TipArtist: NextComponentType<NextPageContext, {}, Props> = ({
               _focus={{}}
               isLoading={loading}
               onClick={async () => {
-                let tipAmount = window.web3.utils.toWei("0.1", "Ether");
+                let tipAmount = window.web3.utils.toWei(value!, "Ether");
                 await tipAudioOwner(id, tipAmount);
                 await updateAudios();
               }}
