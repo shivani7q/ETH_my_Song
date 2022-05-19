@@ -73,9 +73,15 @@ const TipArtist: NextComponentType<NextPageContext, {}, Props> = ({
               _focus={{}}
               isLoading={loading}
               onClick={async () => {
+                setLoading(true);
                 let tipAmount = window.web3.utils.toWei(value!, "Ether");
-                await tipAudioOwner(id, tipAmount);
-                await updateAudios();
+                try {
+                  await tipAudioOwner(id, tipAmount);
+                  await updateAudios();
+                  onClose()
+                } catch (err) {
+                  console.log(err);
+                }
               }}
             >
               checkout
