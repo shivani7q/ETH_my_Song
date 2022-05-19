@@ -7,9 +7,7 @@ import { useData } from "../contexts/DataContext";
 
 const Home: NextPage = () => {
   const { loading, Audios } = useData();
-  console.log(Audios);
   
-
   return (
     <Box
       minH="100vh"
@@ -55,6 +53,7 @@ const Home: NextPage = () => {
                   address={audio.author}
                   description={audio.description}
                   totalTips={audio.tipAmount}
+                  id={audio.id}
                 />
               ))}
             </Grid>

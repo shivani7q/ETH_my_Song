@@ -29,12 +29,13 @@ const SongCard: NextComponentType<NextPageContext, {}, Props> = ({
   address,
   description,
   totalTips,
+  id
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
-      <TipArtist isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
+      <TipArtist isOpen={isOpen} onOpen={onOpen} onClose={onClose} id={id as string} />
       <Box w="sm" h="72" rounded="lg" bgColor="white" shadow="xl">
         <Box
           w="full"
