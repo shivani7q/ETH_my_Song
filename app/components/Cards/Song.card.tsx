@@ -1,3 +1,4 @@
+declare let window: any;
 import type { NextComponentType, NextPageContext } from "next";
 
 import TipArtist from "../Modals/TipArtist.modal";
@@ -19,6 +20,7 @@ interface Props {
   owner?: string;
   id?: string;
   description: string;
+  totalTips: number;
 }
 
 const SongCard: NextComponentType<NextPageContext, {}, Props> = ({
@@ -26,6 +28,7 @@ const SongCard: NextComponentType<NextPageContext, {}, Props> = ({
   owner,
   address,
   description,
+  totalTips,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -54,7 +57,7 @@ const SongCard: NextComponentType<NextPageContext, {}, Props> = ({
           <Text textColor="gray.600" fontWeight="500" fontSize="md">
             {address.slice(0, 4) + "..." + address.slice(-4)}
           </Text>
-          <Text textColor="gray.700" fontWeight="600" fontSize="md" >
+          <Text textColor="gray.700" fontWeight="600" fontSize="md">
             {description}
           </Text>
           <Center>
@@ -85,7 +88,7 @@ const SongCard: NextComponentType<NextPageContext, {}, Props> = ({
                 width="6"
                 alt="polygon icon"
               />
-              5 MATIC
+              {window?.web3.utils.fromWei(totalTips, "Ether")} MATIC
             </Button>
           </Tooltip>
         </Box>
