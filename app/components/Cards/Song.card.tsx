@@ -1,4 +1,4 @@
-import type { NextComponentType } from "next";
+import type { NextComponentType, NextPageContext } from "next";
 
 import TipArtist from "../Modals/TipArtist.modal";
 import {
@@ -8,20 +8,34 @@ import {
   Tooltip,
   useDisclosure,
   Image,
+  Center,
 } from "@chakra-ui/react";
 
 import ReactAudioPlayer from "react-audio-player";
 
-const SongCard: NextComponentType = () => {
+interface Props {
+  address: string;
+  hash?: string;
+  owner?: string;
+  id?: string;
+  description: string;
+}
+
+const SongCard: NextComponentType<NextPageContext, {}, Props> = ({
+  hash,
+  owner,
+  address,
+  description,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
       <TipArtist isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
-      <Box w="72" h="80" rounded="lg" bgColor="white" shadow="xl">
+      <Box w="sm" h="72" rounded="lg" bgColor="white" shadow="xl">
         <Box
           w="full"
-          h="48"
+          h="28"
           bgColor="#04070C"
           rounded="lg"
           borderBottomRadius="0"
@@ -29,23 +43,30 @@ const SongCard: NextComponentType = () => {
 
         <Box
           px="4"
-          py="3"
-          fontFamily="sen"
+          py="1"
+          fontFamily="redHat"
           fontWeight="700"
           fontSize="xl"
           display="flex"
           flexDir="column"
+          gap="3"
         >
-          <Text textColor="gray.600">enchanted</Text>
-          <Text fontWeight="600" fontSize="md" textColor="gray.500" my="-1">
-            taylor swift
+          <Text textColor="gray.600" fontWeight="500" fontSize="md">
+            {address.slice(0, 4) + "..." + address.slice(-4)}
           </Text>
-
+          <Text textColor="gray.700" fontWeight="600" fontSize="md" >
+            {description}
+          </Text>
+          <Center>
+            <ReactAudioPlayer
+              controls
+              src={`https://ipfs.infura.io/ipfs/${hash}`}
+            />
+          </Center>
           <Tooltip label="Total Tips" placement="top">
             <Button
               h="8"
-              py="1"
-              px="4"
+              bottom="0"
               display="flex"
               flexDir="row"
               alignItems="center"
@@ -53,7 +74,6 @@ const SongCard: NextComponentType = () => {
               fontSize="sm"
               rounded="full"
               variant="outline"
-              alignSelf="bottom"
               marginLeft="auto"
               _focus={{}}
               _active={{}}

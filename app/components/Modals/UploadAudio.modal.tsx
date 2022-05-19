@@ -1,4 +1,6 @@
 import type { NextComponentType, NextPageContext } from "next";
+import { useData } from "../../contexts/DataContext";
+import { create } from "ipfs-http-client";
 
 import { Props } from "../../@types/Modal.props";
 import { useState } from "react";
@@ -26,9 +28,35 @@ const UploadAudioModal: NextComponentType<NextPageContext, {}, Props> = ({
 }) => {
   const toast = useToast();
   const [file, setFile] = useState<File | null>(null);
-  console.log(file);
 
-  const upload = () => {};
+  const [isLoading, setLoading] = useState<boolean>(false);
+  const { contract, account, updateAudios } = useData();
+  const client = create({ url: "https://ipfs.infura.io:5001/api/v0" });
+  const [description, setDescription] = useState<string>("");
+
+  const uploadAudio = async () => {
+    setLoading(true);
+    const added = await client.add(file as File);
+    contract.methods
+      .uploadAudio(added.path, description)
+      .send({ from: account })
+      .then(async () => {
+        await updateAudios();
+        setFile(null);
+        setDescription("");
+
+        onClose();
+      })
+      .catch(() => {
+        toast({
+          title: "Couldn't upload Audio",
+          description: "Oops! Looks like we have an error here",
+          status: "error",
+          duration: 4000,
+          isClosable: true,
+        });
+      });
+  };
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
@@ -57,7 +85,12 @@ const UploadAudioModal: NextComponentType<NextPageContext, {}, Props> = ({
               onChange={(e: any) => setFile(e.target.files[0])}
             />
 
-            <Button colorScheme="purple" _focus={{}} onClick={upload}>
+            <Button
+              colorScheme="purple"
+              _focus={{}}
+              onClick={uploadAudio}
+              isLoading={isLoading}
+            >
               upload
             </Button>
           </ModalBody>

@@ -12,7 +12,7 @@
     "@chakra-ui/react": "^1.8.8",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
-    "@fontsource/red-hat-display": "^4.5.6",
+    "@fontsource/red-hat-display": "^4.5.9",
     "@fontsource/sen": "^4.5.5",
     "@fontsource/syncopate": "^4.5.5",
     "framer-motion": "^6",

@@ -1,12 +1,14 @@
 import type { NextPage } from "next";
 
 import { Hero, Search, SongCard } from "../components";
-import { Box, Text, Flex, Spinner } from "@chakra-ui/react";
+import { Box, Text, Flex, Spinner, Grid } from "@chakra-ui/react";
 
 import { useData } from "../contexts/DataContext";
 
 const Home: NextPage = () => {
-  const { loading } = useData();
+  const { loading, Audios } = useData();
+
+  console.log(Audios);
 
   return (
     <Box
@@ -30,10 +32,12 @@ const Home: NextPage = () => {
         >
           FEATURED SONGS
         </Text>
-
-        <Flex dir="row" gap="8" alignItems="center">
-          <SongCard />
-        </Flex>
+        <Grid gap="8" templateColumns="repeat(3, 1fr)" justifyContent="center">
+          {Audios.map((audio) => (
+            <SongCard hash={audio.hash} address={audio.author} description={audio.description} />
+          ))}
+        </Grid>
+        <Flex dir="row" gap="8" alignItems="center"></Flex>
       </Box>
     </Box>
   );

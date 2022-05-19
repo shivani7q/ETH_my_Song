@@ -748,10 +748,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@fontsource/red-hat-display@^4.5.6":
-  version "4.5.6"
-  resolved "https://registry.yarnpkg.com/@fontsource/red-hat-display/-/red-hat-display-4.5.6.tgz#87e0e894a6bdc818a3f46fdc16232460b7b0048b"
-  integrity sha512-SBZGII0gu6PsfPr6CDzQjtcGcENUephNZw5nvXxXS4BZhwKNIqGbD6ySO5zaTdCt0jlTqa1oKwbnbEOMmWGuMw==
+"@fontsource/red-hat-display@^4.5.9":
+  version "4.5.9"
+  resolved "https://registry.yarnpkg.com/@fontsource/red-hat-display/-/red-hat-display-4.5.9.tgz#1337eb360813d9b4c605a382e099c569910735bd"
+  integrity sha512-AbZUzPCOUpkyo/R7H2P39yQORJNPj/8s6JrYJVac7fANN/pHMoQ1JgeyCCCoRZeNKHlAfrMx1pQ+SDiS425t+A==
 
 "@fontsource/sen@^4.5.5":
   version "4.5.5"
