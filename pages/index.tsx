@@ -1,43 +1,70 @@
-import Head from "next/head";
-import { useState } from "react";
-import Body from "../components/Body";
-import Header from "../components/Layout/Header";
-import { UploadAudio } from "../components/UploadAudio";
+import type { NextPage } from "next";
+
+import { Hero, Search, SongCard } from "../components";
+import { Box, Text, Spinner, Grid } from "@chakra-ui/react";
+
 import { useData } from "../contexts/DataContext";
 
-export default function Home() {
-  let [isOpen, setIsOpen] = useState(false);
-  const { loading } = useData();
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  function openModal() {
-    setIsOpen(true);
-  }
+const Home: NextPage = () => {
+  const { loading, Audios } = useData();
+  console.log(Audios);
 
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen py-2">
-      
-      <Head>
-      
-        <title>ETH My Song</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <UploadAudio isOpen={isOpen} closeModal={closeModal} />
-      <Header />
-      <div
-        className="max-w-2xl w-full bg-blue-100 rounded-xl flex justify-center items-center py-2 mt-3 hover:bg-blue-200 cursor-pointer"
-        onClick={openModal}
-      >
-        <span className="text-blue-500 font-bold text-lg">Upload Audio</span>
-      </div>
-      {loading ? (
-        <div className="font-bold text-gray-400 mt-36 text-4xl">Loading...</div>
-      ) : (
-        <Body />
-      )}
-    </div>
-  );
-      }
+    <Box
+      minH="100vh"
+      minW="full"
+      overflowX="hidden"
+      display="flex"
+      flexDir="column"
+    >
+      <Box>
+        <Hero />
+        <Search />
+      </Box>
 
+      <Box
+        my="24"
+        mx="20"
+        display="flex"
+        flexDir="column"
+        justifyContent={loading ? "center" : ""}
+        alignItems={loading ? "center" : ""}
+        gap="8"
+      >
+        {loading && <Spinner size="xl" color="purple.700" thickness="4px" />}
+
+        {Audios && (
+          <>
+            <Text
+              fontFamily="syncopate"
+              fontSize="3xl"
+              fontWeight="700"
+              textColor="#4B5563"
+            >
+              FEATURED SONGS
+            </Text>
+            <Grid
+              gap="8"
+              templateColumns="repeat(3, 1fr)"
+              justifyContent="center"
+            >
+              {Audios.map((audio) => (
+                <SongCard
+                  key={audio.index}
+                  hash={audio.hash}
+                  address={audio.author}
+                  description={audio.description}
+                  totalTips={audio.tipAmount}
+                  id={audio.id}
+                  owner={audio.author}
+                />
+              ))}
+            </Grid>
+          </>
+        )}
+      </Box>
+    </Box>
+  );
+};
+
+export default Home;

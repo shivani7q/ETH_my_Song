@@ -1,7 +1,10 @@
+// @ts-nocheck
+
 declare let window: any;
-import { createContext, useContext, useEffect, useState } from "react";
+import { FC, createContext, useContext, useEffect, useState } from "react";
 import Web3 from "web3";
 import ETH_my_Song from "../abis/ETH_my_Song.json";
+
 interface DataContextProps {
   account: string;
   contract: any;
@@ -14,7 +17,7 @@ interface DataContextProps {
 
 const DataContext = createContext<DataContextProps | null>(null);
 
-export const DataProvider: React.FC = ({ children }) => {
+export const DataProvider = ({ children }: any) => {
   const data = useProviderData();
 
   return <DataContext.Provider value={data}>{children}</DataContext.Provider>;
@@ -24,7 +27,7 @@ export const useData = () => useContext<DataContextProps>(DataContext);
 
 export const useProviderData = () => {
   const [loading, setLoading] = useState(true);
-  const [Audios, setAudios] = useState([]);
+  const [Audios, setAudios] = useState<any[]>([]);
   const [AudioCount, setAudioCount] = useState(0);
   const [account, setAccount] = useState("0x0");
   const [contract, setContract] = useState<any>();
@@ -49,8 +52,10 @@ export const useProviderData = () => {
     const web3 = window.web3;
     var allAccounts = await web3.eth.getAccounts();
     setAccount(allAccounts[0]);
+
     const networkId = await web3.eth.net.getId();
     const networkData = ETH_my_Song.networks[networkId];
+
     if (networkData) {
       var tempContract = new web3.eth.Contract(
         ETH_my_Song.abi,
@@ -88,7 +93,7 @@ export const useProviderData = () => {
     }
   };
 
-  const tipAudioOwner = async (id: string, tipAmout) => {
+  const tipAudioOwner = async (id: string, tipAmout: any) => {
     var res = await contract.methods
       .tipAudioOwner(id)
       .send({ from: account, value: tipAmout });
