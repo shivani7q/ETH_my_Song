@@ -16,9 +16,9 @@ import ReactAudioPlayer from "react-audio-player";
 
 interface Props {
   address: string;
-  hash?: string;
-  owner?: string;
-  id?: string;
+  hash: string;
+  owner: string;
+  id: string;
   description: string;
   totalTips: number;
 }

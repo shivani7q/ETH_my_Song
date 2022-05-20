@@ -1,18 +1,27 @@
 import type { NextComponentType } from "next";
 import { useData } from "../../contexts/DataContext";
+import { CgProfile } from "react-icons/cg";
+import { FiLogOut } from "react-icons/fi";
+import { useRouter } from "next/router";
 
-import { Box, Button, Image, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Image,
+  useDisclosure,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuDivider,
+} from "@chakra-ui/react";
 
 import UploadAudioModal from "../Modals/UploadAudio.modal";
 
 const Header: NextComponentType = () => {
   const { account } = useData();
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  let minAddr =
-    (account as string).substring(0, 4) +
-    "...." +
-    (account as string).substring(account.length - 4, account.length);
+  const router = useRouter();
 
   return (
     <>
@@ -40,24 +49,54 @@ const Header: NextComponentType = () => {
         </Button>
 
         {account ? (
-          <Button
-            bgColor="green.50"
-            rounded="full"
-            h="8"
-            px="4"
-            _hover={{ bgColor: "green.100" }}
-            fontWeight="700"
-            fontSize="sm"
-            gap="1"
-          >
-            <Image
-              src="/assests/polygon-icon.svg"
-              height="6"
-              width="6"
-              alt="polygon icon"
-            />
-            {minAddr}
-          </Button>
+          <>
+            <Menu>
+              <MenuButton>
+                <Button
+                  bgColor="green.50"
+                  rounded="full"
+                  h="8"
+                  px="4"
+                  _hover={{ bgColor: "green.100" }}
+                  fontWeight="700"
+                  fontSize="sm"
+                  gap="1"
+                  _active={{}}
+                  _focus={{}}
+                >
+                  <Image
+                    src="/assests/polygon-icon.svg"
+                    height="6"
+                    width="6"
+                    alt="polygon icon"
+                  />
+                  {account.slice(0, 4) + "...." + account.slice(-4)}
+                </Button>
+              </MenuButton>
+
+              <MenuList fontFamily="redHat" fontWeight="500">
+                <MenuItem
+                  display="flex"
+                  gap="2"
+                  alignItems="center"
+                  onClick={() => router.push("/account")}
+                >
+                  <CgProfile size={22} />
+                  Account
+                </MenuItem>
+                <MenuDivider />
+                <MenuItem
+                  display="flex"
+                  gap="2"
+                  alignItems="center"
+                  textColor="red.500"
+                >
+                  <FiLogOut size={22} />
+                  Disconnect Wallet
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          </>
         ) : (
           <Button
             h="9"

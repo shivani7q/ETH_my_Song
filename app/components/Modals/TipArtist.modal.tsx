@@ -15,6 +15,7 @@ import {
   InputGroup,
   InputLeftElement,
   Flex,
+  useToast,
 } from "@chakra-ui/react";
 
 import type { Props } from "../../@types/Modal.props";
@@ -29,6 +30,8 @@ const TipArtist: NextComponentType<NextPageContext, {}, Props> = ({
   const [value, setvalue] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
   const { tipAudioOwner, updateAudios } = useData();
+
+  const toast = useToast();
 
   return (
     <>
@@ -76,11 +79,20 @@ const TipArtist: NextComponentType<NextPageContext, {}, Props> = ({
                 setLoading(true);
                 let tipAmount = window.web3.utils.toWei(value!, "Ether");
                 try {
-                  await tipAudioOwner(id, tipAmount);
+                  await tipAudioOwner(id as string, tipAmount);
                   await updateAudios();
-                  onClose()
                 } catch (err) {
                   console.log(err);
+                  
+                } finally {
+                  onClose();
+                  toast({
+                    title: "noice",
+                    description: "nice",
+                    status: "success",
+                    duration: 4000,
+                    isClosable: true,
+                  });
                 }
               }}
             >

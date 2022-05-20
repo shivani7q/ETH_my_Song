@@ -2,7 +2,7 @@ interface Props {
     isOpen: boolean;
     onOpen: () => void;
     onClose: () => void;
-    id: string;
+    id?: string;
 }
 
 export type { Props }
