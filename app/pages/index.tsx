@@ -7,8 +7,8 @@ import { useData } from "../contexts/DataContext";
 
 const Home: NextPage = () => {
   const { loading, Audios } = useData();
-  console.log(Audios)
-  
+  console.log(Audios);
+
   return (
     <Box
       minH="100vh"
@@ -50,6 +50,7 @@ const Home: NextPage = () => {
             >
               {Audios.map((audio) => (
                 <SongCard
+                  key={audio.index}
                   hash={audio.hash}
                   address={audio.author}
                   description={audio.description}

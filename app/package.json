@@ -16,6 +16,7 @@
     "@fontsource/sen": "^4.5.5",
     "@fontsource/syncopate": "^4.5.5",
     "framer-motion": "^6",
+    "ipfs-http-client": "^56.0.3",
     "next": "12.1.4",
     "nextjs-progressbar": "^0.0.14",
     "react": "18.0.0",
