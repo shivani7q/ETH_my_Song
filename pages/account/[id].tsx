@@ -23,6 +23,7 @@ const AccountPage: NextPage = () => {
     Audios.map((audio) => {
       if (audio.author === (id as string)) {
         tempArray.push(audio);
+        setAudios(tempArray)
       }
     });
   }, [id, Audios]);
