@@ -15,6 +15,7 @@
     "@fontsource/red-hat-display": "^4.5.9",
     "@fontsource/sen": "^4.5.5",
     "@fontsource/syncopate": "^4.5.5",
+    "boring-avatars": "^1.6.3",
     "framer-motion": "^6",
     "ipfs-http-client": "^56.0.3",
     "next": "12.1.4",

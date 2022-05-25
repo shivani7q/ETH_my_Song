@@ -89,7 +89,7 @@ const SongCard: NextComponentType<NextPageContext, {}, Props> = ({
                 width="6"
                 alt="polygon icon"
               />
-              {window?.web3.utils.fromWei(totalTips, "Ether")} MATIC
+              {window?.web3?.utils?.fromWei(totalTips, "Ether")} MATIC
             </Button>
           </Tooltip>
         </Box>

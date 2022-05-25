@@ -33,6 +33,11 @@ const Header: NextComponentType = () => {
         alignItems="center"
         marginLeft="auto"
         gap="4"
+        position="fixed"
+        top="0"
+        right="0"
+        mt="6"
+        mr="4"
       >
         <Button
           h="9"
