@@ -3,7 +3,8 @@ import { useData } from "../../contexts/DataContext";
 import { create } from "ipfs-http-client";
 
 import { Props } from "../../@types/Modal.props";
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import { useDropzone } from "react-dropzone";
 
 import {
   Modal,
@@ -15,11 +16,12 @@ import {
   ModalCloseButton,
   Button,
   Box,
-  Text,
-  VisuallyHidden,
   Input,
+  Text,
   useToast,
+  Image,
 } from "@chakra-ui/react";
+import { getBase64 } from "../../utils/helpers/getBase64";
 
 const UploadAudioModal: NextComponentType<NextPageContext, {}, Props> = ({
   isOpen,
@@ -28,11 +30,25 @@ const UploadAudioModal: NextComponentType<NextPageContext, {}, Props> = ({
 }) => {
   const toast = useToast();
   const [file, setFile] = useState<File | null>(null);
+  const [byteData, setByteData] = useState<any>();
 
   const [isLoading, setLoading] = useState<boolean>(false);
   const { contract, account, updateAudios } = useData();
   const client = create({ url: "https://ipfs.infura.io:5001/api/v0" });
   const [description, setDescription] = useState<string>("");
+
+  const onDrop = useCallback((acceptedFiles: any) => {
+    const imageData = acceptedFiles[0];
+
+    getBase64(imageData).then((data) => {
+      console.log(data);
+      setByteData(data);
+    });
+  }, []);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+  });
 
   const uploadAudio = async () => {
     setLoading(true);
@@ -64,7 +80,7 @@ const UploadAudioModal: NextComponentType<NextPageContext, {}, Props> = ({
         <ModalContent
           display="flex"
           justifyContent="center"
-          h="48"
+          h="96"
           fontFamily="sen"
         >
           <ModalHeader fontFamily="sen" textAlign="center">
@@ -77,22 +93,65 @@ const UploadAudioModal: NextComponentType<NextPageContext, {}, Props> = ({
             alignItems="center"
             gap="3"
           >
-            <Input
-              type="file"
-              accept="audio/*"
-              border="none"
-              _focus={{}}
-              onChange={(e: any) => setFile(e.target.files[0])}
-            />
+            {byteData ? (
+              <>
+                <Image src={byteData} />
+              </>
+            ) : (
+              <>
+                <Input
+                  type="file"
+                  accept="audio/*"
+                  border="none"
+                  _focus={{}}
+                  onChange={(e: any) => setFile(e.target.files[0])}
+                />
 
-            <Button
-              colorScheme="purple"
-              _focus={{}}
-              onClick={uploadAudio}
-              isLoading={isLoading}
-            >
-              upload
-            </Button>
+                <Box
+                  h="32"
+                  w="80%"
+                  px="12"
+                  py="8"
+                  border="dashed 2px"
+                  borderColor="gray.200"
+                  rounded="lg"
+                  _hover={{ bgColor: "gray.50" }}
+                  transition="all"
+                  transitionDuration="100ms"
+                  cursor="pointer"
+                  display="grid"
+                  placeItems="center"
+                  textAlign="center"
+                  {...getRootProps()}
+                >
+                  <input {...getInputProps()} type="file" accept="image/*" />
+                  <Text
+                    fontWeight="medium"
+                    textColor="gray.600"
+                    fontFamily="redHat"
+                  >
+                    drag n drop song cover here <br />
+                    or click to choose <br />
+                    (optional)
+                  </Text>
+                </Box>
+
+                <Input
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value as string)}
+                  variant="filled"
+                  placeholder="enter a description"
+                />
+                <Button
+                  colorScheme="purple"
+                  _focus={{}}
+                  onClick={uploadAudio}
+                  isLoading={isLoading}
+                >
+                  upload
+                </Button>
+              </>
+            )}
           </ModalBody>
           <ModalCloseButton _focus={{}} />
         </ModalContent>
