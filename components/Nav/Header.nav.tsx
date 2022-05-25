@@ -84,7 +84,7 @@ const Header: NextComponentType = () => {
                   display="flex"
                   gap="2"
                   alignItems="center"
-                  onClick={() => router.push("/account")}
+                  onClick={() => router.push(`/account/${account}`)}
                 >
                   <CgProfile size={22} />
                   Account
