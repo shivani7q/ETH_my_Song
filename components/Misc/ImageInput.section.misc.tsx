@@ -1,16 +1,15 @@
 import type { NextComponentType } from "next";
 
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Text, Button } from "@chakra-ui/react";
 import { useState, useCallback } from "react";
 
 import { useDropzone } from "react-dropzone";
 import { getBase64 } from "../../utils/helpers/getBase64";
 
-
 const ImageInput: NextComponentType = () => {
   const [byteData, setByteData] = useState<any>();
+  const [gradient, setGradient] = useState()
 
-  
   const onDrop = useCallback((acceptedFiles: any) => {
     const imageData = acceptedFiles[0];
 
@@ -39,9 +38,7 @@ const ImageInput: NextComponentType = () => {
             textAlign="center"
             overflow="hidden"
             bgSize="cover"
-            style={{
-              backgroundImage: `url(${byteData})`,
-            }}
+            bgImage={`url(${byteData})`}
           ></Box>
         </>
       ) : (
@@ -86,6 +83,22 @@ const ImageInput: NextComponentType = () => {
           (optional) (ratio: 2.5:1)
         </Text>
       </Box>
+      <Button
+        rounded="full"
+        fontFamily="redHat"
+        fontWeight="600"
+        px="6"
+        _focus={{}}
+        _active={{ transform: "scale(1)" }}
+        _hover={{ transform: "scale(0.95)" }}
+        bgGradient="linear(to-r, #ee0979, #ff6a00)"
+        textColor="white"
+        transition="all"
+        transitionDuration="100ms"
+        onClick={() => setByteData("https://picsum.photos/300/120?random=1")}
+      >
+        randomize
+      </Button>
     </>
   );
 };
