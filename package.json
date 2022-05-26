@@ -16,6 +16,7 @@
     "@fontsource/sen": "^4.5.5",
     "@fontsource/syncopate": "^4.5.5",
     "boring-avatars": "^1.6.3",
+    "ethers": "^5.6.8",
     "framer-motion": "^6",
     "ipfs-http-client": "^56.0.3",
     "next": "12.1.4",
@@ -25,7 +26,9 @@
     "react-dom": "18.0.0",
     "react-dropzone": "^14.2.1",
     "react-icons": "^4.3.1",
-    "web3": "^1.7.3"
+    "recoil": "^0.7.3-alpha.2",
+    "web3": "^1.7.3",
+    "web3modal": "^1.9.7"
   },
   "devDependencies": {
     "@types/node": "17.0.23",

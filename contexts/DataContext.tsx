@@ -5,6 +5,9 @@ import { FC, createContext, useContext, useEffect, useState } from "react";
 import Web3 from "web3";
 import ETH_my_Song from "../abis/ETH_my_Song.json";
 
+import { accountAtom } from "../utils/helpers/atoms"
+import { useRecoilState } from "recoil"
+
 interface DataContextProps {
   account: string;
   contract: any;
@@ -29,7 +32,8 @@ export const useProviderData = () => {
   const [loading, setLoading] = useState(true);
   const [Audios, setAudios] = useState<any[]>([]);
   const [AudioCount, setAudioCount] = useState(0);
-  const [account, setAccount] = useState("0x0");
+  const [account, setAccount] = useRecoilState(accountAtom);
+
   const [contract, setContract] = useState<any>();
 
   useEffect(() => {
@@ -107,7 +111,6 @@ export const useProviderData = () => {
   };
 
   return {
-    account,
     contract,
     loading,
     Audios,

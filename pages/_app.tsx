@@ -14,17 +14,18 @@ import "@fontsource/sen/400.css"
 import "@fontsource/sen/700.css";
 
 import { DataProvider } from '../contexts/DataContext';
+import { RecoilRoot } from "recoil"
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <RecoilRoot>
       <DataProvider>
         <ChakraProvider theme={theme}>
           <NextNProgress />
           <Component {...pageProps} />
         </ChakraProvider>
       </DataProvider>
-    </>
+    </RecoilRoot>
   );
 }
 

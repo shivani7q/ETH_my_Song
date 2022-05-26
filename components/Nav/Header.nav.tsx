@@ -1,8 +1,15 @@
 import type { NextComponentType } from "next";
+import { useState } from "react";
 import { useData } from "../../contexts/DataContext";
 import { CgProfile } from "react-icons/cg";
 import { FiLogOut } from "react-icons/fi";
 import { useRouter } from "next/router";
+
+import { web3Modal } from "../../utils/providers/web3Modal";
+import { providers } from "ethers";
+
+import { accountAtom } from "../../utils/helpers/atoms";
+import { useRecoilState } from "recoil";
 
 import {
   Box,
@@ -19,9 +26,34 @@ import {
 import UploadAudioModal from "../Modals/UploadAudio.modal";
 
 const Header: NextComponentType = () => {
-  const { account } = useData();
+  const [account, setAccount] = useRecoilState(accountAtom)
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
+
+  const [connected, setConnected] = useState<boolean>(false)
+
+  const onConnect = async () => {
+    try {
+      const provider = await web3Modal.connect();
+      const web3Provider = new providers.Web3Provider(provider);
+
+      const signer = web3Provider.getSigner();
+      const address = await signer.getAddress();
+
+      let chainID = await signer.getChainId();
+
+      if (chainID != 80001) {
+        alert("Please switch to matic testnet");
+      } else {
+        setAccount(address);
+        setConnected(true)
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  let web3: any;
 
   return (
     <>
