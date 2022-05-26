@@ -77,12 +77,7 @@ const UploadAudioModal: NextComponentType<NextPageContext, {}, Props> = ({
     <>
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
-        <ModalContent
-          display="flex"
-          justifyContent="center"
-          h="96"
-          fontFamily="sen"
-        >
+        <ModalContent display="flex" justifyContent="center" fontFamily="sen">
           <ModalHeader fontFamily="sen" textAlign="center">
             Upload Audio to IPFS
           </ModalHeader>
@@ -93,65 +88,98 @@ const UploadAudioModal: NextComponentType<NextPageContext, {}, Props> = ({
             alignItems="center"
             gap="3"
           >
+            <Input
+              type="file"
+              accept="audio/*"
+              border="none"
+              _focus={{}}
+              onChange={(e: any) => setFile(e.target.files[0])}
+            />
             {byteData ? (
               <>
-                <Image src={byteData} />
-              </>
-            ) : (
-              <>
-                <Input
-                  type="file"
-                  accept="audio/*"
-                  border="none"
-                  _focus={{}}
-                  onChange={(e: any) => setFile(e.target.files[0])}
-                />
-
                 <Box
                   h="32"
                   w="80%"
-                  px="12"
-                  py="8"
-                  border="dashed 2px"
-                  borderColor="gray.200"
+                  p="1"
                   rounded="lg"
-                  _hover={{ bgColor: "gray.50" }}
-                  transition="all"
-                  transitionDuration="100ms"
                   cursor="pointer"
                   display="grid"
                   placeItems="center"
                   textAlign="center"
-                  {...getRootProps()}
                 >
-                  <input {...getInputProps()} type="file" accept="image/*" />
-                  <Text
-                    fontWeight="medium"
-                    textColor="gray.600"
-                    fontFamily="redHat"
-                  >
-                    drag n drop song cover here <br />
-                    or click to choose <br />
-                    (optional)
-                  </Text>
+                  <Image
+                    src={byteData}
+                    height="100%"
+                    width="100%"
+                    alt="cover"
+                    rounded="lg"
+                  />
                 </Box>
-
-                <Input
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value as string)}
-                  variant="filled"
-                  placeholder="enter a description"
-                />
-                <Button
-                  colorScheme="purple"
-                  _focus={{}}
-                  onClick={uploadAudio}
-                  isLoading={isLoading}
-                >
-                  upload
-                </Button>
               </>
+            ) : (
+              <Box
+                h="32"
+                w="80%"
+                p="1"
+                border="solid 2px"
+                borderColor="gray.200"
+                rounded="lg"
+                cursor="pointer"
+                display="grid"
+                placeItems="center"
+                textAlign="center"
+              >
+                <Text
+                  fontWeight="medium"
+                  textColor="gray.600"
+                  fontFamily="redHat"
+                >
+                  no image chosen
+                </Text>
+              </Box>
             )}
+            <Box
+              h="32"
+              w="80%"
+              px="12"
+              py="8"
+              border="dashed 2px"
+              borderColor="gray.200"
+              rounded="lg"
+              _hover={{ bgColor: "gray.50" }}
+              transition="all"
+              transitionDuration="100ms"
+              cursor="pointer"
+              display="grid"
+              placeItems="center"
+              textAlign="center"
+              {...getRootProps()}
+            >
+              <input {...getInputProps()} type="file" accept="image/*" />
+              <Text
+                fontWeight="medium"
+                textColor="gray.600"
+                fontFamily="redHat"
+              >
+                drag n drop song cover here <br />
+                or click to choose <br />
+                (optional) (ratio: 2.5:1)
+              </Text>
+            </Box>
+            <Input
+              value={description}
+              onChange={(e) => setDescription(e.target.value as string)}
+              variant="filled"
+              placeholder="enter a description"
+            />
+            <Button
+              colorScheme="purple"
+              _focus={{}}
+              onClick={uploadAudio}
+              isLoading={isLoading}
+            >
+              upload
+            </Button>
           </ModalBody>
           <ModalCloseButton _focus={{}} />
         </ModalContent>
