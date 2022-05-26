@@ -10,4 +10,9 @@ const loadingAtom = atom({
   default: true,
 });
 
-export { accountAtom, loadingAtom };
+const byteDataAtom = atom({
+  key: "byteData",
+  default: ""
+})
+
+export { accountAtom, loadingAtom, byteDataAtom };

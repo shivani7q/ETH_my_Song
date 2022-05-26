@@ -5,17 +5,19 @@ import { useState, useCallback } from "react";
 
 import { useDropzone } from "react-dropzone";
 import { getBase64 } from "../../utils/helpers/getBase64";
+import { byteDataAtom } from "../../utils/helpers/atoms";
+import { useRecoilState } from "recoil";
 
 const ImageInput: NextComponentType = () => {
-  const [byteData, setByteData] = useState<any>();
-  const [gradient, setGradient] = useState()
+  const [byteData, setByteData] = useRecoilState(byteDataAtom);
+  const [gradient, setGradient] = useState();
 
   const onDrop = useCallback((acceptedFiles: any) => {
     const imageData = acceptedFiles[0];
 
     getBase64(imageData).then((data) => {
       console.log(data);
-      setByteData(data);
+      setByteData(data as string);
     });
   }, []);
 
@@ -95,7 +97,7 @@ const ImageInput: NextComponentType = () => {
         textColor="white"
         transition="all"
         transitionDuration="100ms"
-        onClick={() => setByteData("https://picsum.photos/300/120?random=1")}
+        onClick={() => setByteData("https://picsum.photos/300/120")}
       >
         randomize
       </Button>

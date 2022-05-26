@@ -1,10 +1,11 @@
 import type { NextComponentType, NextPageContext } from "next";
 import { useData } from "../../contexts/DataContext";
-import { create } from "ipfs-http-client";
 
 import { Props } from "../../@types/Modal.props";
 import { useState, useCallback } from "react";
-import { ImageInput } from ".."
+import { ImageInput } from "..";
+
+import { useMoralisWeb3Api } from "react-moralis";
 
 import {
   Modal,
@@ -17,6 +18,9 @@ import {
   Input,
   useToast,
 } from "@chakra-ui/react";
+import { useRecoilState } from "recoil";
+import { accountAtom, byteDataAtom } from "../../utils/helpers/atoms";
+import { getBase64 } from "../../utils/helpers/getBase64";
 
 const UploadAudioModal: NextComponentType<NextPageContext, {}, Props> = ({
   isOpen,
@@ -26,16 +30,33 @@ const UploadAudioModal: NextComponentType<NextPageContext, {}, Props> = ({
   const toast = useToast();
   const [file, setFile] = useState<File | null>(null);
 
+  const [account, setAccount] = useRecoilState(accountAtom);
+
   const [isLoading, setLoading] = useState<boolean>(false);
-  const { contract, account, updateAudios } = useData();
-  const client = create({ url: "https://ipfs.infura.io:5001/api/v0" });
+  const { contract, updateAudios } = useData();
   const [description, setDescription] = useState<string>("");
 
+  const [byteData, setByteData] = useRecoilState(byteDataAtom);
+
+  const Web3Api = useMoralisWeb3Api();
+
   const uploadAudio = async () => {
-    setLoading(true);
-    const added = await client.add(file as File);
-    contract.methods
-      .uploadAudio(added.path, description)
+    const base64 = await getBase64(file as File);
+
+    const options = {
+      abi: [
+        {
+          path: file?.name as string,
+          content: base64,
+        },
+      ],
+    };
+
+    const path = await Web3Api.storage.uploadFolder(options);
+    console.log(path);
+
+    await contract.methods
+      .uploadAudio(path[0].path!, description)
       .send({ from: account })
       .then(async () => {
         await updateAudios();
@@ -44,7 +65,8 @@ const UploadAudioModal: NextComponentType<NextPageContext, {}, Props> = ({
 
         onClose();
       })
-      .catch(() => {
+      .catch((error: any) => {
+        console.log(error);
         toast({
           title: "Couldn't upload Audio",
           description: "Oops! Looks like we have an error here",
@@ -83,12 +105,7 @@ const UploadAudioModal: NextComponentType<NextPageContext, {}, Props> = ({
               variant="filled"
               placeholder="enter a description"
             />
-            <Button
-              colorScheme="purple"
-              _focus={{}}
-              onClick={uploadAudio}
-              isLoading={isLoading}
-            >
+            <Button colorScheme="purple" _focus={{}} onClick={uploadAudio}>
               upload
             </Button>
           </ModalBody>
