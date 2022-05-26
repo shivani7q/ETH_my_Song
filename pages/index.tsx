@@ -7,7 +7,6 @@ import { useData } from "../contexts/DataContext";
 
 const Home: NextPage = () => {
   const { loading, Audios } = useData();
-  console.log(Audios);
 
   return (
     <Box
@@ -31,7 +30,7 @@ const Home: NextPage = () => {
         alignItems={loading ? "center" : ""}
         gap="8"
       >
-        {loading && <Spinner size="xl" color="purple.700" thickness="4px" />}
+        {loading && <Spinner size="xl" color="blue.500" thickness="3px" />}
 
         {Audios && (
           <>

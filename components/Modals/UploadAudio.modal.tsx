@@ -4,24 +4,19 @@ import { create } from "ipfs-http-client";
 
 import { Props } from "../../@types/Modal.props";
 import { useState, useCallback } from "react";
-import { useDropzone } from "react-dropzone";
+import { ImageInput } from ".."
 
 import {
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   Button,
-  Box,
   Input,
-  Text,
   useToast,
-  Image,
 } from "@chakra-ui/react";
-import { getBase64 } from "../../utils/helpers/getBase64";
 
 const UploadAudioModal: NextComponentType<NextPageContext, {}, Props> = ({
   isOpen,
@@ -30,25 +25,11 @@ const UploadAudioModal: NextComponentType<NextPageContext, {}, Props> = ({
 }) => {
   const toast = useToast();
   const [file, setFile] = useState<File | null>(null);
-  const [byteData, setByteData] = useState<any>();
 
   const [isLoading, setLoading] = useState<boolean>(false);
   const { contract, account, updateAudios } = useData();
   const client = create({ url: "https://ipfs.infura.io:5001/api/v0" });
   const [description, setDescription] = useState<string>("");
-
-  const onDrop = useCallback((acceptedFiles: any) => {
-    const imageData = acceptedFiles[0];
-
-    getBase64(imageData).then((data) => {
-      console.log(data);
-      setByteData(data);
-    });
-  }, []);
-
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-  });
 
   const uploadAudio = async () => {
     setLoading(true);
@@ -95,75 +76,7 @@ const UploadAudioModal: NextComponentType<NextPageContext, {}, Props> = ({
               _focus={{}}
               onChange={(e: any) => setFile(e.target.files[0])}
             />
-            {byteData ? (
-              <>
-                <Box
-                  h="32"
-                  w="80%"
-                  p="1"
-                  rounded="lg"
-                  cursor="pointer"
-                  display="grid"
-                  placeItems="center"
-                  textAlign="center"
-                  overflow="hidden"
-                  bgSize="cover"
-                  style={{
-                    backgroundImage: `url(${byteData})`,
-                  }}
-                >
-                </Box>
-              </>
-            ) : (
-              <Box
-                h="32"
-                w="80%"
-                p="1"
-                border="solid 2px"
-                borderColor="gray.200"
-                rounded="lg"
-                cursor="pointer"
-                display="grid"
-                placeItems="center"
-                textAlign="center"
-              >
-                <Text
-                  fontWeight="medium"
-                  textColor="gray.600"
-                  fontFamily="redHat"
-                >
-                  no image chosen
-                </Text>
-              </Box>
-            )}
-            <Box
-              h="32"
-              w="80%"
-              px="12"
-              py="8"
-              border="dashed 2px"
-              borderColor="gray.200"
-              rounded="lg"
-              _hover={{ bgColor: "gray.100" }}
-              transition="all"
-              transitionDuration="100ms"
-              cursor="pointer"
-              display="grid"
-              placeItems="center"
-              textAlign="center"
-              {...getRootProps()}
-            >
-              <input {...getInputProps()} type="file" accept="image/*" />
-              <Text
-                fontWeight="medium"
-                textColor="gray.600"
-                fontFamily="redHat"
-              >
-                drag n drop song cover here <br />
-                or click to choose <br />
-                (optional) (ratio: 2.5:1)
-              </Text>
-            </Box>
+            <ImageInput />
             <Input
               value={description}
               onChange={(e) => setDescription(e.target.value as string)}

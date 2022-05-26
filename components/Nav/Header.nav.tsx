@@ -1,6 +1,5 @@
 import type { NextComponentType } from "next";
 import { useState } from "react";
-import { useData } from "../../contexts/DataContext";
 import { CgProfile } from "react-icons/cg";
 import { FiLogOut } from "react-icons/fi";
 import { useRouter } from "next/router";
@@ -23,7 +22,7 @@ import {
   MenuDivider,
 } from "@chakra-ui/react";
 
-import UploadAudioModal from "../Modals/UploadAudio.modal";
+import { UploadAudioModal } from "..";
 
 const Header: NextComponentType = () => {
   const [account, setAccount] = useRecoilState(accountAtom)
@@ -143,7 +142,8 @@ const Header: NextComponentType = () => {
             rounded="full"
             fontWeight="bold"
             textColor="white"
-            _active={{}}
+            _focus={{}}
+            onClick={onConnect}
           >
             connect wallet
           </Button>

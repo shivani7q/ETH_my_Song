@@ -1,7 +1,7 @@
 declare let window: any;
 import type { NextComponentType, NextPageContext } from "next";
 
-import TipArtist from "../Modals/TipArtist.modal";
+import { TipArtist } from ".."
 import {
   Box,
   Text,
