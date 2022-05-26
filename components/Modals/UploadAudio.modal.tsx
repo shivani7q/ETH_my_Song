@@ -106,14 +106,12 @@ const UploadAudioModal: NextComponentType<NextPageContext, {}, Props> = ({
                   display="grid"
                   placeItems="center"
                   textAlign="center"
+                  overflow="hidden"
+                  bgSize="cover"
+                  style={{
+                    backgroundImage: `url(${byteData})`,
+                  }}
                 >
-                  <Image
-                    src={byteData}
-                    height="100%"
-                    width="100%"
-                    alt="cover"
-                    rounded="lg"
-                  />
                 </Box>
               </>
             ) : (
@@ -146,7 +144,7 @@ const UploadAudioModal: NextComponentType<NextPageContext, {}, Props> = ({
               border="dashed 2px"
               borderColor="gray.200"
               rounded="lg"
-              _hover={{ bgColor: "gray.50" }}
+              _hover={{ bgColor: "gray.100" }}
               transition="all"
               transitionDuration="100ms"
               cursor="pointer"
