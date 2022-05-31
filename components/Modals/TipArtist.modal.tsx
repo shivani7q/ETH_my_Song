@@ -29,7 +29,6 @@ const TipArtist: NextComponentType<NextPageContext, {}, Props> = ({
 }) => {
   const [value, setvalue] = useState<string>();
   const [loading, setLoading] = useState<boolean>(false);
-  const { tipAudioOwner, updateAudios } = useData();
 
   const toast = useToast();
 
@@ -53,7 +52,12 @@ const TipArtist: NextComponentType<NextPageContext, {}, Props> = ({
             <Flex justifyContent="center">
               <InputGroup>
                 <InputLeftElement>
-                  <Image src="/assests/polygon.svg" height="6" width="6" />
+                  <Image
+                    src="/assests/polygon.svg"
+                    height="6"
+                    width="6"
+                    alt="polygon"
+                  />
                 </InputLeftElement>
                 <Input
                   type="number"
@@ -75,26 +79,6 @@ const TipArtist: NextComponentType<NextPageContext, {}, Props> = ({
               mb="4"
               _focus={{}}
               isLoading={loading}
-              onClick={async () => {
-                setLoading(true);
-                let tipAmount = window.web3.utils.toWei(value!, "Ether");
-                try {
-                  await tipAudioOwner(id as string, tipAmount);
-                  await updateAudios();
-                } catch (err) {
-                  console.log(err);
-                  
-                } finally {
-                  onClose();
-                  toast({
-                    title: "noice",
-                    description: "nice",
-                    status: "success",
-                    duration: 4000,
-                    isClosable: true,
-                  });
-                }
-              }}
             >
               checkout
             </Button>

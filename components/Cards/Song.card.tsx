@@ -62,10 +62,10 @@ const SongCard: NextComponentType<NextPageContext, {}, Props> = ({
             {description!}
           </Text>
           <Center>
-            <ReactAudioPlayer
+            {/* <ReactAudioPlayer
               controls
               src={`https://ipfs.infura.io/ipfs/${hash}`}
-            />
+            /> */}
           </Center>
           <Tooltip label="Total Tips" placement="top">
             <Button

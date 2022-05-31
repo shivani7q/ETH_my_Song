@@ -21,6 +21,7 @@ import {
 import { useRecoilState } from "recoil";
 import { accountAtom, byteDataAtom } from "../../utils/helpers/atoms";
 import { getBase64 } from "../../utils/helpers/getBase64";
+import { useContract } from "@thirdweb-dev/react";
 
 const UploadAudioModal: NextComponentType<NextPageContext, {}, Props> = ({
   isOpen,
@@ -33,52 +34,25 @@ const UploadAudioModal: NextComponentType<NextPageContext, {}, Props> = ({
   const [account, setAccount] = useRecoilState(accountAtom);
 
   const [isLoading, setLoading] = useState<boolean>(false);
-  const { contract, updateAudios } = useData();
   const [description, setDescription] = useState<string>("");
 
   const [byteData, setByteData] = useRecoilState(byteDataAtom);
 
   const Web3Api = useMoralisWeb3Api();
 
-  const uploadAudio = async () => {
-    const base64 = await getBase64(file as File);
+  const { contract } = useContract(
+    "0x88Cd28FeC5008D7384103E3f672E988E4744FE57"
+  );
 
-    const options = {
-      abi: [
-        {
-          path: file?.name as string,
-          content: base64,
-        },
-      ],
-    };
-
-    const path = await Web3Api.storage.uploadFolder(options);
-    console.log(path);
-
-    await contract.methods
-      .uploadAudio(path[0].path!, description)
-      .send({ from: account })
-      .then(async () => {
-        await updateAudios();
-        setFile(null);
-        setDescription("");
-
-        onClose();
-      })
-      .catch((error: any) => {
-        console.log(error);
-        toast({
-          title: "Couldn't upload Audio",
-          description: "Oops! Looks like we have an error here",
-          status: "error",
-          duration: 4000,
-          isClosable: true,
-        });
-      });
+  const onUpload = async () => {
+    console.log("uploaded")
+    const res = await contract?.call("uploadAudio", "imgHash", "desc", "coverImage");
+    console.log(res)
   };
+
   return (
     <>
-      {/* <Modal isOpen={isOpen} onClose={onClose} isCentered>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent display="flex" justifyContent="center" fontFamily="sen">
           <ModalHeader fontFamily="sen" textAlign="center">
@@ -91,27 +65,20 @@ const UploadAudioModal: NextComponentType<NextPageContext, {}, Props> = ({
             alignItems="center"
             gap="3"
           >
-            <Input
-              type="file"
-              accept="audio/*"
-              border="none"
-              _focus={{}}
-              onChange={(e: any) => setFile(e.target.files[0])}
-            />
+            <Input type="file" accept="audio/*" border="none" _focus={{}} />
             <ImageInput />
             <Input
               value={description}
-              onChange={(e) => setDescription(e.target.value as string)}
               variant="filled"
               placeholder="enter a description"
             />
-            <Button colorScheme="purple" _focus={{}} onClick={uploadAudio}>
+            <Button colorScheme="purple" _focus={{}} onClick={onUpload}>
               upload
             </Button>
           </ModalBody>
           <ModalCloseButton _focus={{}} />
         </ModalContent>
-      </Modal> */}
+      </Modal>
     </>
   );
 };

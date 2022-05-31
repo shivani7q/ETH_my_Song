@@ -19,7 +19,7 @@ const ImageInput: NextComponentType = () => {
       console.log(data);
       setByteData(data as string);
     });
-  }, []);
+  }, [setByteData]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,

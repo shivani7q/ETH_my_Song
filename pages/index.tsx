@@ -17,12 +17,14 @@ const Home: NextPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       const count = await contract?.call("AudioCount");
+      let tempArray = [];
 
       for (let i = 0; i <= count; i++) {
-        const audios = await contract?.call("Audios", i);
-        setAudios(audios);
+        const audio = await contract?.call("Audios", i);
+        tempArray.push(audio);
         setLoading(false);
       }
+      setAudios(tempArray);
     };
     fetchData();
   }, [contract]);

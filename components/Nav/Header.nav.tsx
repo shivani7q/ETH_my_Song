@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 
 import { useAddress, useMetamask } from "@thirdweb-dev/react";
+import UploadAudioModal from "../Modals/UploadAudio.modal";
 
 const Header: NextComponentType = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -26,6 +27,7 @@ const Header: NextComponentType = () => {
 
   return (
     <>
+      <UploadAudioModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
       <Box
         display="flex"
         flexDir="row"
