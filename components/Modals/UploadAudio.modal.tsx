@@ -78,7 +78,7 @@ const UploadAudioModal: NextComponentType<NextPageContext, {}, Props> = ({
   };
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+      {/* <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent display="flex" justifyContent="center" fontFamily="sen">
           <ModalHeader fontFamily="sen" textAlign="center">
@@ -111,7 +111,7 @@ const UploadAudioModal: NextComponentType<NextPageContext, {}, Props> = ({
           </ModalBody>
           <ModalCloseButton _focus={{}} />
         </ModalContent>
-      </Modal>
+      </Modal> */}
     </>
   );
 };

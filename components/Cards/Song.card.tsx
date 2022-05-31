@@ -56,10 +56,10 @@ const SongCard: NextComponentType<NextPageContext, {}, Props> = ({
           gap="3"
         >
           <Text textColor="gray.600" fontWeight="500" fontSize="md">
-            {address.slice(0, 4) + "..." + address.slice(-4)}
+            {address?.slice(0, 4) + "..." + address?.slice(-4)}
           </Text>
           <Text textColor="gray.700" fontWeight="600" fontSize="md">
-            {description}
+            {description!}
           </Text>
           <Center>
             <ReactAudioPlayer

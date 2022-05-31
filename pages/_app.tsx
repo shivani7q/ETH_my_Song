@@ -17,6 +17,7 @@ import { DataProvider } from "../contexts/DataContext";
 import { RecoilRoot } from "recoil";
 
 import { MoralisProvider } from "react-moralis";
+import { ThirdwebProvider, ChainId } from "@thirdweb-dev/react";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -25,12 +26,12 @@ function MyApp({ Component, pageProps }: AppProps) {
       appId={process.env[`NEXT_PUBLIC_APP_ID`]!}
     >
       <RecoilRoot>
-        <DataProvider>
+        <ThirdwebProvider desiredChainId={ChainId.Mumbai}>
           <ChakraProvider theme={theme}>
             <NextNProgress />
             <Component {...pageProps} />
           </ChakraProvider>
-        </DataProvider>
+        </ThirdwebProvider>
       </RecoilRoot>
     </MoralisProvider>
   );
