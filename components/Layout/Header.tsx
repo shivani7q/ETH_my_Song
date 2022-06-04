@@ -1,10 +1,11 @@
 import Identicon from "identicon.js";
+import Image from "next/image";
 import React, { useEffect } from "react";
 import { useData } from "../../contexts/DataContext";
 
 function Header() {
   const { account } = useData();
-  const [data, setData] = React.useState();
+  const [data, setData] = React.useState<string>();
   useEffect(() => {
     if (account !== "0x0") {
       setData(new Identicon(account, 200).toString());
@@ -24,10 +25,11 @@ function Header() {
             {account}
           </span>
           {account && data && (
-            <img
+            <Image
               width={35}
               height={35}
               src={`data:image/png;base64, ${data}`}
+              alt="smth"
             />
           )}
         </div>

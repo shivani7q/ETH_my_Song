@@ -1,43 +1,89 @@
-import Head from "next/head";
-import { useState } from "react";
-import Body from "../components/Body";
-import Header from "../components/Layout/Header";
-import { UploadAudio } from "../components/UploadAudio";
-import { useData } from "../contexts/DataContext";
+import type { NextPage } from "next";
 
-export default function Home() {
-  let [isOpen, setIsOpen] = useState(false);
-  const { loading } = useData();
-  function closeModal() {
-    setIsOpen(false);
-  }
+import { Hero, Search, SongCard } from "../components";
+import { Box, Text, Spinner, Grid } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { useContract } from "@thirdweb-dev/react";
+import { contractAddress } from "../lib/constants";
 
-  function openModal() {
-    setIsOpen(true);
-  }
+const Home: NextPage = () => {
+  const [loading, setLoading] = useState<boolean>(true);
+  const [Audios, setAudios] = useState<any[]>([]);
+  console.log(Audios);
+
+  const { contract } = useContract(contractAddress);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const count = await contract?.call("AudioCount");
+      let tempArray = [];
+
+      for (let i = 0; i <= count; i++) {
+        const audio = await contract?.call("Audios", i);
+        tempArray.push(audio);
+        setLoading(false);
+      }
+      setAudios(tempArray);
+    };
+    fetchData();
+  }, [contract]);
 
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen py-2">
-      
-      <Head>
-      
-        <title>ETH My Song</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <UploadAudio isOpen={isOpen} closeModal={closeModal} />
-      <Header />
-      <div
-        className="max-w-2xl w-full bg-blue-100 rounded-xl flex justify-center items-center py-2 mt-3 hover:bg-blue-200 cursor-pointer"
-        onClick={openModal}
-      >
-        <span className="text-blue-500 font-bold text-lg">Upload Audio</span>
-      </div>
-      {loading ? (
-        <div className="font-bold text-gray-400 mt-36 text-4xl">Loading...</div>
-      ) : (
-        <Body />
-      )}
-    </div>
-  );
-      }
+    <Box
+      minH="100vh"
+      minW="full"
+      overflowX="hidden"
+      display="flex"
+      flexDir="column"
+    >
+      <Box>
+        <Hero />
+        <Search />
+      </Box>
 
+      <Box
+        my="24"
+        mx="20"
+        display="flex"
+        flexDir="column"
+        justifyContent={loading ? "center" : ""}
+        alignItems={loading ? "center" : ""}
+        gap="8"
+      >
+        {loading && <Spinner size="xl" color="blue.500" thickness="3px" />}
+
+        {Audios && (
+          <>
+            <Text
+              fontFamily="syncopate"
+              fontSize="3xl"
+              fontWeight="700"
+              textColor="#4B5563"
+            >
+              FEATURED SONGS
+            </Text>
+            <Grid
+              gap="8"
+              templateColumns="repeat(3, 1fr)"
+              justifyContent="center"
+            >
+              {Audios.map((audio) => (
+                <SongCard
+                  key={audio.index}
+                  hash={audio.hash}
+                  address={audio.author}
+                  description={audio.description}
+                  totalTips={audio.tipAmount}
+                  id={audio.id}
+                  owner={audio.author}
+                />
+              ))}
+            </Grid>
+          </>
+        )}
+      </Box>
+    </Box>
+  );
+};
+
+export default Home;
