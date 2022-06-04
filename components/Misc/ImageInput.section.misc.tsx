@@ -14,6 +14,8 @@ const ImageInput: NextComponentType = () => {
 
   const onDrop = useCallback((acceptedFiles: any) => {
     const imageData = acceptedFiles[0];
+    // get the image name
+    const imageName = imageData.name;
 
     getBase64(imageData).then((data) => {
       console.log(data);

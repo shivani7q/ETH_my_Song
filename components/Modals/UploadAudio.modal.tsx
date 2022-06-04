@@ -1,8 +1,9 @@
+// @ts-nocheck
+
 import type { NextComponentType, NextPageContext } from "next";
-import { useData } from "../../contexts/DataContext";
 
 import { Props } from "../../@types/Modal.props";
-import { useState, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { ImageInput } from "..";
 
 import { useMoralisWeb3Api } from "react-moralis";
@@ -18,8 +19,8 @@ import {
   Input,
   useToast,
 } from "@chakra-ui/react";
-import { useRecoilState } from "recoil";
-import { accountAtom, byteDataAtom } from "../../utils/helpers/atoms";
+import { useRecoilValue } from "recoil";
+import { byteDataAtom } from "../../utils/helpers/atoms";
 import { getBase64 } from "../../utils/helpers/getBase64";
 import { useContract } from "@thirdweb-dev/react";
 
@@ -30,13 +31,12 @@ const UploadAudioModal: NextComponentType<NextPageContext, {}, Props> = ({
 }) => {
   const toast = useToast();
   const [file, setFile] = useState<File | null>(null);
-
-  const [account, setAccount] = useRecoilState(accountAtom);
-
   const [isLoading, setLoading] = useState<boolean>(false);
   const [description, setDescription] = useState<string>("");
 
-  const [byteData, setByteData] = useRecoilState(byteDataAtom);
+  console.log(file);
+
+  const byteData = useRecoilValue(byteDataAtom);
 
   const Web3Api = useMoralisWeb3Api();
 
@@ -45,9 +45,33 @@ const UploadAudioModal: NextComponentType<NextPageContext, {}, Props> = ({
   );
 
   const onUpload = async () => {
-    console.log("uploaded")
-    const res = await contract?.call("uploadAudio", "imgHash", "desc", "coverImage");
-    console.log(res)
+    if (file !== null) {
+      const base64 = await getBase64(file as File);
+
+      const options = {
+        abi: [
+          {
+            path: file?.name as string,
+            content: await base64,
+          },
+          {
+            path: "image.png",
+            content: byteData,
+          },
+        ],
+      };
+      const data = await Web3Api.storage.uploadFolder(options);
+
+      console.log(data);
+
+      const res = await contract?.call(
+        "uploadAudio",
+        data[0].path,
+        "uwu",
+        data[1].path
+      );
+      console.log(res);
+    }
   };
 
   return (
@@ -65,12 +89,19 @@ const UploadAudioModal: NextComponentType<NextPageContext, {}, Props> = ({
             alignItems="center"
             gap="3"
           >
-            <Input type="file" accept="audio/*" border="none" _focus={{}} />
+            <Input
+              type="file"
+              accept="audio/*"
+              border="none"
+              _focus={{}}
+              onChange={(e: any) => setFile(e.target.files[0])}
+            />
             <ImageInput />
             <Input
               value={description}
               variant="filled"
               placeholder="enter a description"
+              onChange={(e) => setDescription(e.target.value as string)}
             />
             <Button colorScheme="purple" _focus={{}} onClick={onUpload}>
               upload

@@ -1,18 +1,18 @@
 import { atom } from "recoil";
 
-const accountAtom = atom({
+const accountAtom = atom<string | undefined>({
   key: "accountAtom",
-  default: "",
+  default: undefined,
 });
 
-const loadingAtom = atom({
+const loadingAtom = atom<boolean>({
   key: "loading",
   default: true,
 });
 
-const byteDataAtom = atom({
+const byteDataAtom = atom<string | undefined>({
   key: "byteData",
-  default: ""
-})
+  default: undefined,
+});
 
 export { accountAtom, loadingAtom, byteDataAtom };
