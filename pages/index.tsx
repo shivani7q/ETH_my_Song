@@ -4,15 +4,14 @@ import { Hero, Search, SongCard } from "../components";
 import { Box, Text, Spinner, Grid } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useContract } from "@thirdweb-dev/react";
+import { contractAddress } from "../lib/constants";
 
 const Home: NextPage = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [Audios, setAudios] = useState<any[]>([]);
   console.log(Audios);
 
-  const { contract } = useContract(
-    "0x88Cd28FeC5008D7384103E3f672E988E4744FE57"
-  );
+  const { contract } = useContract(contractAddress);
 
   useEffect(() => {
     const fetchData = async () => {

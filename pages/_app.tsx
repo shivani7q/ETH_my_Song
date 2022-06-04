@@ -13,7 +13,6 @@ import "@fontsource/syncopate/700.css";
 import "@fontsource/sen/400.css";
 import "@fontsource/sen/700.css";
 
-import { DataProvider } from "../contexts/DataContext";
 import { RecoilRoot } from "recoil";
 
 import { MoralisProvider } from "react-moralis";

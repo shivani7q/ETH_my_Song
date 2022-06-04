@@ -20,6 +20,8 @@ import {
 
 import type { Props } from "../../@types/Modal.props";
 import { useState } from "react";
+import { useContract } from "@thirdweb-dev/react";
+import { contractAddress } from "../../lib/constants";
 
 const TipArtist: NextComponentType<NextPageContext, {}, Props> = ({
   isOpen,
@@ -31,6 +33,32 @@ const TipArtist: NextComponentType<NextPageContext, {}, Props> = ({
   const [loading, setLoading] = useState<boolean>(false);
 
   const toast = useToast();
+
+  const { contract } = useContract(contractAddress);
+
+  const handleTip = async () => {
+      setLoading(true);
+      const result = await contract?.call("tipAudioOwner", id);
+      if (result) {
+        toast({
+          title: "Success",
+          description: "Tip sent",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
+        onClose();
+      } else {
+        toast({
+          title: "Error",
+          description: "Tip failed",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+      }
+      setLoading(false);
+  };
 
   return (
     <>
@@ -79,6 +107,7 @@ const TipArtist: NextComponentType<NextPageContext, {}, Props> = ({
               mb="4"
               _focus={{}}
               isLoading={loading}
+              onClick={handleTip}
             >
               checkout
             </Button>

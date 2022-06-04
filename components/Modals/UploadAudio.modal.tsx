@@ -23,6 +23,7 @@ import { useRecoilValue } from "recoil";
 import { byteDataAtom } from "../../utils/helpers/atoms";
 import { getBase64 } from "../../utils/helpers/getBase64";
 import { useContract } from "@thirdweb-dev/react";
+import { contractAddress } from "../../lib/constants";
 
 const UploadAudioModal: NextComponentType<NextPageContext, {}, Props> = ({
   isOpen,
@@ -40,9 +41,8 @@ const UploadAudioModal: NextComponentType<NextPageContext, {}, Props> = ({
 
   const Web3Api = useMoralisWeb3Api();
 
-  const { contract } = useContract(
-    "0x88Cd28FeC5008D7384103E3f672E988E4744FE57"
-  );
+  const { contract } = useContract(contractAddress);
+
 
   const onUpload = async () => {
     if (file !== null) {

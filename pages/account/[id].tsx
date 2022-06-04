@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 
-import { useData } from "../../contexts/DataContext";
 import { useEffect, useState } from "react";
 
 import { Header, SongCard } from "../../components";
@@ -10,27 +9,27 @@ import { Box, Text, Grid, Button, Spinner } from "@chakra-ui/react";
 import { default as BoringAvatar } from "boring-avatars";
 
 const AccountPage: NextPage = () => {
-  const router = useRouter();
-  const [audios, setAudios] = useState<any>([]);
+  // const router = useRouter();
+  // const [audios, setAudios] = useState<any>([]);
 
-  const { id } = router.query;
+  // const { id } = router.query;
 
-  const { Audios, loading } = useData();
+  // const { Audios, loading } = useData();
 
-  useEffect(() => {
-    let tempArray: any = [];
+  // useEffect(() => {
+  //   let tempArray: any = [];
 
-    Audios.map((audio) => {
-      if (audio.author === (id as string)) {
-        tempArray.push(audio);
-        setAudios(tempArray)
-      }
-    });
-  }, [id, Audios]);
+  //   Audios.map((audio) => {
+  //     if (audio.author === (id as string)) {
+  //       tempArray.push(audio);
+  //       setAudios(tempArray)
+  //     }
+  //   });
+  // }, [id, Audios]);
 
   return (
     <Box minW="full" minH="screen" overflowX="hidden">
-      <Box
+      {/* <Box
         h="64"
         minW="full"
         px="8"
@@ -104,7 +103,7 @@ const AccountPage: NextPage = () => {
             </Grid>
           </>
         )}
-      </Box>
+      </Box> */}
     </Box>
   );
 };
