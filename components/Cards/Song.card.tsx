@@ -1,7 +1,7 @@
 declare let window: any;
 import type { NextComponentType, NextPageContext } from "next";
 
-import { TipArtist } from ".."
+import { TipArtist } from "..";
 import {
   Box,
   Text,
@@ -21,6 +21,7 @@ interface Props {
   id: string;
   description: string;
   totalTips: number;
+  cover_image: string;
 }
 
 const SongCard: NextComponentType<NextPageContext, {}, Props> = ({
@@ -29,20 +30,27 @@ const SongCard: NextComponentType<NextPageContext, {}, Props> = ({
   address,
   description,
   totalTips,
-  id
+  id,
+  cover_image
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
-      <TipArtist isOpen={isOpen} onOpen={onOpen} onClose={onClose} id={id as string} />
+      <TipArtist
+        isOpen={isOpen}
+        onOpen={onOpen}
+        onClose={onClose}
+        id={id as string}
+      />
       <Box w="sm" h="72" rounded="lg" bgColor="white" shadow="xl">
         <Box
           w="full"
           h="28"
-          bgColor="#04070C"
+          bgImage={`url(${cover_image})`}
           rounded="lg"
           borderBottomRadius="0"
+          bgSize="cover"
         ></Box>
 
         <Box
@@ -62,10 +70,10 @@ const SongCard: NextComponentType<NextPageContext, {}, Props> = ({
             {description!}
           </Text>
           <Center>
-            {/* <ReactAudioPlayer
+            <ReactAudioPlayer
               controls
-              src={`https://ipfs.infura.io/ipfs/${hash}`}
-            /> */}
+              src={hash}
+            />
           </Center>
           <Tooltip label="Total Tips" placement="top">
             <Button

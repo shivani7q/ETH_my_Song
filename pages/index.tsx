@@ -76,6 +76,7 @@ const Home: NextPage = () => {
                   totalTips={audio.tipAmount}
                   id={audio.id}
                   owner={audio.author}
+                  cover_image={audio.cover_image}
                 />
               ))}
             </Grid>
